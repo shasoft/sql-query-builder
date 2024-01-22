@@ -13,7 +13,7 @@ use Shasoft\DbSchema\Index\IndexPrimary;
 class BuilderExtraData
 {
     // Выполнить дополнительный расчет
-    static public function run(DbSchemaMigrations $migrations): void
+    static public function run(DbSchemaMigrations $migrations, string $prefixPrefixKey = ''): void
     {
         $chars = [];
         for ($index = 0; $index < 260; $index++) {
@@ -23,6 +23,8 @@ class BuilderExtraData
             }
         }
         $chars = array_keys($chars);
+        //
+        if (!empty($prefixPrefixKey)) $prefixPrefixKey .= ':';
         $index = 0;
         $prefixKeys = [];
         foreach ($migrations->database()->tables() as $table) {
@@ -38,8 +40,8 @@ class BuilderExtraData
                 }
             }
             //
-            $prefixKeys[$table->name()] = $prefixKey;
-            //
+            $prefixKeys[$table->name()] = $prefixPrefixKey . $prefixKey;
+            //$prefixKeys[$table->name()] = $prefixPrefixKey . $table->name();
             $index++;
         }
         //
@@ -56,8 +58,11 @@ class BuilderExtraData
                     }
                 }
                 DbSchemaExtraData::set($table, 'pk', $pk);
-                //DbSchemaExtraData::set($table, 'prefixKey', $prefixKeys[$table->name()]);
-                DbSchemaExtraData::set($table, 'prefixKey', strtoupper($table->name()));
+                DbSchemaExtraData::set(
+                    $table,
+                    'prefixKey',
+                    $prefixKeys[$table->name()]
+                );
                 // Проставить флаг Первичный ключ для каждой колонки таблицы
                 foreach ($table->columns() as $columnName => $column) {
                     DbSchemaExtraData::set(
