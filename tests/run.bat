@@ -18,7 +18,7 @@ mklink /D %pathSite% "%~dp0test-site"
 rem **********************************************************************************
 set phpunit=%~dp0../vendor/bin/phpunit
 rem Выполнить тесты
-rem php %phpunit%
-php %~dp0../vendor/bin/phpunit --filter FillTest
+php %phpunit%
+rem php %~dp0../vendor/bin/phpunit --filter FillTest
 rem php %~dp0../vendor/bin/phpunit --filter execute
 if %errorlevel% neq 0 exit /b %errorlevel%

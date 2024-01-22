@@ -51,7 +51,7 @@ class ExampleFill extends ExampleBase
                         );
                     });
                 $sqlList = DbToolPdoLog::getRaw();
-                s_dump($sqlList);
+                //s_dump($sqlList);
             },
             'FillSimple' => function (Builder $builder) {
                 // Список строк с идентификаторами комментариев
@@ -130,7 +130,7 @@ class ExampleFill extends ExampleBase
                             ['name as authorCommentName']
                         );
                     });
-                s_dump($fill, $rows);
+                //s_dump($fill, $rows);
             },
             'FillSimple+NoCache' => function (Builder $builder) {
                 // Список строк с идентификаторами комментариев

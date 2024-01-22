@@ -62,3 +62,6 @@ HAVING SUM(`B`.`rate`) > 100
  ORDER BY `U`.`name` ASC
  LIMIT 2
 ```
+
+[Стандартные примеры](./docs/examples.md)
+[Примеры функции заполнения](./docs/examples-fill.md)
